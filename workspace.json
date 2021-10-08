@@ -1,6 +1,147 @@
 {
   "version": 2,
   "projects": {
+    "expoapp": {
+      "root": "apps/expoapp",
+      "sourceRoot": "apps/expoapp/src",
+      "projectType": "application",
+      "generators": {},
+      "targets": {
+        "bundle": {
+          "executor": "nx-react-native-expo:bundle",
+          "options": {}
+        },
+        "start": {
+          "executor": "nx-react-native-expo:start",
+          "options": {}
+        },
+        "run-ios": {
+          "executor": "nx-react-native-expo:run-ios",
+          "options": {}
+        },
+        "run-android": {
+          "executor": "nx-react-native-expo:run-android",
+          "options": {}
+        },
+        "run-web": {
+          "executor": "nx-react-native-expo:run-web",
+          "options": {}
+        },
+        "publish": {
+          "executor": "nx-react-native-expo:publish",
+          "options": {}
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/expoapp/**/*.{js,ts,tsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/expoapp"
+          ],
+          "options": {
+            "jestConfig": "apps/expoapp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "nextapp": {
+      "root": "apps/nextapp",
+      "sourceRoot": "apps/nextapp",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "root": "apps/nextapp",
+            "outputPath": "dist/apps/nextapp"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "nextapp:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "nextapp:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "nextapp:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/nextapp"
+          ],
+          "options": {
+            "jestConfig": "apps/nextapp/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "apps/nextapp/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        }
+      }
+    },
+    "nextapp-e2e": {
+      "root": "apps/nextapp-e2e",
+      "sourceRoot": "apps/nextapp-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/nextapp-e2e/cypress.json",
+            "devServerTarget": "nextapp:serve",
+            "tsConfig": "apps/nextapp-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nextapp:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "apps/nextapp-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
     "vanilla-rn": {
       "root": "apps/vanilla-rn",
       "sourceRoot": "apps/vanilla-rn/src",
@@ -24,7 +165,9 @@
         },
         "bundle-ios": {
           "executor": "@nrwl/react-native:bundle",
-          "outputs": ["apps/vanilla-rn/build"],
+          "outputs": [
+            "apps/vanilla-rn/build"
+          ],
           "options": {
             "entryFile": "apps/vanilla-rn/src/main.tsx",
             "platform": "ios",
@@ -61,14 +204,20 @@
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
+          "outputs": [
+            "{options.outputFile}"
+          ],
           "options": {
-            "lintFilePatterns": ["apps/vanilla-rn/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "apps/vanilla-rn/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/vanilla-rn"],
+          "outputs": [
+            "coverage/apps/vanilla-rn"
+          ],
           "options": {
             "jestConfig": "apps/vanilla-rn/jest.config.js",
             "passWithNoTests": true
@@ -127,9 +276,13 @@
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
+          "outputs": [
+            "{options.outputFile}"
+          ],
           "options": {
-            "lintFilePatterns": ["apps/vanilla-rn-e2e/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "apps/vanilla-rn-e2e/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         }
       }
@@ -138,5 +291,18 @@
   "cli": {
     "defaultCollection": "@nrwl/react-native"
   },
-  "defaultProject": "vanilla-rn"
+  "defaultProject": "vanilla-rn",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  }
 }

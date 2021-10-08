@@ -96,3 +96,13 @@ buck-out/
 node_modules/
 
 apps/vanilla-rn-e2e/artifacts
+.expo*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+apps/expoapp/node_modules
