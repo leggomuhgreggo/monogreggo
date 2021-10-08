@@ -4,5 +4,8 @@
   "version": "0.0.1",
   "dependencies": {
     "react-native": "*"
+  },
+  "resolutions": {
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz"
   }
 }
