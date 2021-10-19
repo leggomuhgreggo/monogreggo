@@ -21,8 +21,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - run: yarn install
       - name: Expo Publish
-        working-directory: apps/expoapp
-        run: nx run expoapp:publish --release-channel=pr-${{ github.event.number }}
+        run: yarn nx run expoapp:publish --release-channel=pr-${{ github.event.number }}
       - uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
