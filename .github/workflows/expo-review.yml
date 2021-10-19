@@ -9,6 +9,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
+      - uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: lint,test
+          projects: all
       - uses: expo/expo-github-action@v6
         with:
           packager: yarn
@@ -18,7 +22,7 @@ jobs:
       - run: yarn install
       - name: Expo Publish
         working-directory: apps/expoapp
-        run: expo publish --release-channel=pr-${{ github.event.number }}
+        run: nx run expoapp:publish --release-channel=pr-${{ github.event.number }}
       - uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
