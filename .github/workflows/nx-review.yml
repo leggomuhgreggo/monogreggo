@@ -1,4 +1,4 @@
-name: Expo Review
+name: Nx Review
 on: [pull_request]
 jobs:
   publish:
