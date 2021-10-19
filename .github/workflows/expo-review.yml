@@ -11,10 +11,14 @@ jobs:
           node-version: 14.x
       - uses: expo/expo-github-action@v6
         with:
+          packager: yarn
+          expo-cache: true
           expo-version: 4.x
           token: ${{ secrets.EXPO_TOKEN }}
       - run: yarn install
-      - run: expo publish --release-channel=pr-${{ github.event.number }}
+      - name: Expo Publish
+        working-directory: apps/expoapp
+        run: expo publish --release-channel=pr-${{ github.event.number }}
       - uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
