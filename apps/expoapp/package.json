@@ -6,6 +6,6 @@
     "react-native": "*"
   },
   "resolutions": {
-    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-43.0.0.tar.gz"
   }
 }
