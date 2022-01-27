@@ -8,6 +8,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to Nx + Expo + Next.js 👋</Text>
+      <Text style={styles.text}>Welcome to Nx + Expo + Next.js 👋</Text>
       <StatusBar style="auto" />
     </View>
   );
