@@ -1,8 +1,9 @@
 # Monogreggo
 
-> Nx + Expo + Next.js
+> Nx + Expo + Next.js experiment
 
-This is mostly a proof of concept -- not much past boilerplate. But could be real dope.
+![image](https://user-images.githubusercontent.com/2213636/151307126-7ecaf457-a149-4361-9b87-e4fde725d115.png)
+
 
 ## Setup
 
