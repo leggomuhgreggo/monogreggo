@@ -7,7 +7,6 @@ const withTM = require('next-transpile-modules')(['react-native-web']);
 const { WebpackConfigNxExpo } = require('nx-react-native-expo');
 
 const nextConfig = {
-  // projectRoot: __dirname,
   webpack: (config) => {
     return WebpackConfigNxExpo(config);
   },
@@ -20,14 +19,3 @@ module.exports = withPlugins(
   ],
   nextConfig
 );
-
-
-
-// // original webpack config
-// const createExpoWebpackConfigAsync = require('@expo/webpack-config');
-// const { WebpackConfigNxExpo } = require('nx-react-native-expo');
-
-// module.exports = async function (env, argv) {
-//   const config = await createExpoWebpackConfigAsync(env, argv);
-//   return WebpackConfigNxExpo(config);
-// };

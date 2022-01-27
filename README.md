@@ -1,94 +1,91 @@
-
-
 # Monogreggo
 
-This project was generated using [Nx](https://nx.dev).
+> Nx + Expo + Next.js
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+This is mostly a proof of concept -- not much past boilerplate. But could be real dope.
 
-🔎 **Smart, Extensible Build Framework**
+## Setup
 
-## Adding capabilities to your workspace
+#### Installation
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+```
+yarn install
+```
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+Follow the [Expo doc's](https://docs.expo.dev/get-started/installation/) for Requirements and setting up the mobile app simulators.
 
-Below are our core plugins:
+#### Start the App
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+```
+yarn nx run expoapp:run-web
+yarn nx run expoapp:run-ios
+yarn nx run expoapp:run-android
+```
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+## Next Steps
 
-## Generate an application
+#### Setup CI + EAS Build
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+Part of this would also be validating that the internal package imports are working. React Native's module system is fussy. The Nx Cloud services are pretty good, so maybe that. Probably GH Actions to start with. Oh and Changesets.
 
-> You can use any of the plugins above to generate applications as well.
+#### Docs
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+This is actually my main motivation for doing this -- Storybook isn't cutting it for me. Technically Storybook has RN support, but the APIs have too many comaptibility issues. Whereas with a cross-platform NextJS+Expo JAM-stack solution? Sky's the limit.
 
-## Generate a library
+#### Navigation
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Cross platform navigation is still maturing, in general. React Navigation is how it's usually done, and so in order to get Next.js magical nav API to jive, there's this project:
+[nandorojo/expo-next-react-navigation](https://github.com/nandorojo/expo-next-react-navigation)
 
-> You can also use any of the plugins above to generate libraries as well.
+So establishing that workflow would probably be good.
 
-Libraries are shareable across libraries and applications. They can be imported from `@monogreggo/mylib`.
+#### Testing
 
-## Development server
+Cross-platform testing is the least established part of the ecosystem. Most people use cypress, and only test web. Nx supports detox, but detox has issues. Would be nice to have a single shared testing workflow, though. Technically that can be done through Appium / Codecepts I think -- but it's still a bit iffy.
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+I think there are worthy alternatives to Jest at this point, for unit tests. But hard to justify the potential friction. On the other hand, cross-platform jest isn't a picnic.
 
-## Code scaffolding
+#### Misc.
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+- SSR/SSG
+- Module Federation
+- Dev config (ESLint etc)
+- Styling Workflow/Utils
+- Fix TS snags
+- Nx Generator?
+- Expo dev client
 
-## Build
+---
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Implementation Notes
 
-## Running unit tests
+**Process**
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+- I started with a working Nx + Expo
+- Then I installed the Nx + Next.js plugin, and generated a basic Next.js app.
+- Then I adapted it into the Expo app, while referencing the Expo + Next.js docs
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+Most of the complexity was getting the `next.config.js` file to behave with all the build adapters.
 
-## Running end-to-end tests
+Here are the most relevant libraries to this framework thruple:
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+- `nx-react-native-expo`
+- `@expo/webpack-config`
+- `@expo/next-adapter`
+- `next-compose-plugins`
+- `next-transpile-modules`
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+#### Note: Nx Plugin
 
-## Understand your workspace
+`nx-react-native-expo` is no longer active and will be replaced by an [Nx version](https://github.com/nrwl/nx-expo) sometime this year.
 
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
+#### Note: Nx updates
 
-## Further help
+When updating Nx, ya gotta pin @nrwl/jest@12.3.6:
 
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+```
+yarn nx migrate @nrwl/workspace --to="@nrwl/jest@12.3.6"
+yarn nx migrate --run-migrations
+```
 
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+Reason: RN has an annoying dependency on `jest 26` + `@nrwl/jest@12.3.6` is the last version before the plugin moved to the later version of jest.

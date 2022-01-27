@@ -106,3 +106,4 @@ npm-debug.*
 *.orig.*
 web-build/
 apps/expoapp/node_modules
+.vscode/settings.json

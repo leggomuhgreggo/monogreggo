@@ -15,7 +15,8 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "YWNhMDIwZWMtMGRhNS00MzA5LWE3N2QtNDEzOTNhMTllMzVhfHJlYWQtd3JpdGU="
+        "accessToken": "YWNhMDIwZWMtMGRhNS00MzA5LWE3N2QtNDEzOTNhMTllMzVhfHJlYWQtd3JpdGU=",
+        "parallel": 1
       }
     }
   },
@@ -27,23 +28,21 @@
       }
     ]
   },
-  "projects": {
-    "expoapp": {
-      "tags": []
+  "cli": {
+    "defaultCollection": "@nrwl/react-native"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
     },
-    "nextapp": {
-      "tags": []
-    },
-    "nextapp-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nextapp"]
-    },
-    "vanilla-rn": {
-      "tags": []
-    },
-    "vanilla-rn-e2e": {
-      "tags": [],
-      "implicitDependencies": ["vanilla-rn"]
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
     }
-  }
+  },
+  "defaultProject": "vanilla-rn"
 }
